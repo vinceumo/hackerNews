@@ -12,7 +12,7 @@ self.__precacheManifest = [
     "url": "/hackerNews/js/app.63805238.js"
   },
   {
-    "revision": "30abc2594a62bbf719ecb3598994df59",
+    "revision": "26726c9beca787a0bdd56bf020eff855",
     "url": "/hackerNews/index.html"
   },
   {
