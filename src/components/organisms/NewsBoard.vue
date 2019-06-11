@@ -20,7 +20,7 @@
 
 <script>
 import axios from "axios";
-import inert from "wicg-inert";
+// import inert from "wicg-inert";
 import CommentsSlider from "../organisms/CommentsSlider";
 import NewsStory from "../molecules/NewsStory";
 import Observer from "../molecules/Observer";
