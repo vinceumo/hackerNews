@@ -1,0 +1,29 @@
+$textual-form-inputs-class: "input[type="email"], input[type="number"], input[type="password"], input[type="tel"], input[type="url"], input[type="text"], input[type="search"], textarea, select, .input";
+
+$input-size: 22px;
+
+input {
+  cursor: pointer;
+}
+
+#{$textual-form-inputs-class} {
+    display: inline-block;
+    border: 2px solid color-gray(10);
+    background: color-gray(10);
+    padding: spacer(1);
+    font-weight: bold;
+    outline: none;
+    color: color-gray(100);
+
+    &:hover {
+        border-color: color-gray(80);
+    }
+
+    &::placeholder {
+        color: color-gray(40);
+    }
+
+    &.has-bg-gray-0 {
+        background: color-gray(0);
+    }
+}

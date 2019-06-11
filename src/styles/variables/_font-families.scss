@@ -1,0 +1,31 @@
+// ------------------------------
+// Import fonts
+// ------------------------------
+
+// Import from App.vue
+
+// ------------------------------
+// Sass Variables
+// ------------------------------
+
+$font-family-prefix: --font-family-;
+$font-families: (
+  paragraph: ('Raleway', sans-serif),
+  title: ('Raleway', sans-serif),
+);
+
+// ------------------------------
+// Set function
+// ------------------------------
+
+@function font-family($font-family, $true-val:false) {
+  @if $use-css-var == true {
+    @if $true-val == true {
+      @return map-get($font-families, $font-family); //True Val
+    } @else {
+      @return var(#{$font-family-prefix}#{$font-family}); //CSS Var
+    }
+  } @else {
+    @return map-get($font-families, $font-family); //Disabled CSS Var
+  }
+}

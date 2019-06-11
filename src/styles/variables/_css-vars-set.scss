@@ -1,0 +1,46 @@
+// Set Default CSS Custom properties
+
+@if $use-css-var == true {
+  :root {
+    // Breakpoints
+    @each $name, $bp in $breakpoints {
+      #{$bp-prefix}#{$name}: $bp;
+    }
+
+    // Colors
+    @each $name, $color in $color-themes {
+      @if type-of($color) == "map" {
+        @each $subname, $subcolor in $color {
+          #{$color-prefix}#{$name}-#{$subname}: $subcolor;
+        }
+      } @else if type-of($color) == "color" {
+        #{$color-prefix}#{$name}: $color;
+      }
+    }
+
+    // Colors gray
+    @each $name, $gray-theme in $gray-themes {
+      #{$color-gray-prefix}#{$name}: $gray-theme;
+    }
+
+    // Container sizes
+    @each $name, $container-size in $container-sizes {
+      #{$container-size-prefix}#{$name}: $container-size;
+    }
+
+    // font families
+    @each $name, $font-family in $font-families {
+      #{$font-family-prefix}#{$name}: $font-family;
+    }
+
+    // font sizes
+    @each $name, $font-size in $font-sizes {
+      #{$font-size-prefix}#{$name}: $font-size;
+    }
+
+    // spacers
+    @each $name, $spacer in $spacers {
+      #{$spacer-prefix}#{$name}: $spacer;
+    }
+  }
+}

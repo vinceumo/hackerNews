@@ -1,0 +1,15 @@
+.container {
+    padding-right: $grid-gutter-width / 2;
+    padding-left: $grid-gutter-width / 2;
+    width: 100%;
+
+    &:not(.is-fluid) {
+        margin: 0 auto;
+
+        @each $bp, $container-size in $container-sizes {
+            @include min(#{bp(#{$bp})}) {
+                max-width: container(#{$bp});
+            }
+        }
+    }
+}
