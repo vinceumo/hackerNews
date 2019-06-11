@@ -13,7 +13,7 @@
      </p>
       <p><small>
         <span class="tag" v-bind:class="`is-${ story.type }`">{{ story.type }}</span> |
-        {{ story.score }} points | by {{ story.by }}<span v-if="story.kids"> | <button class="cta is-secondary"> {{ story.kids.length }} comments</button>  </span> 
+        {{ story.score }} points | by {{ story.by }}<span v-if="story.kids"> | <button class="cta is-secondary" v-on:click="showComments(index)"> {{ story.kids.length }} comments</button>  </span> 
         </small></p>
     </li>
 </template>
@@ -21,8 +21,14 @@
 <script>
 export default {
   props: {
+    index: Number,
     story: Object
-  }
+  },
+  methods: {
+    showComments(i) {
+      this.$emit("onShowComments", i);
+    }
+  },
 }
 </script>
 
@@ -32,7 +38,7 @@ export default {
 }
 
 .news-story {
-  margin-bottom: spacer(5);
+  margin-bottom: spacer(6);
 
   p {
     margin-top: spacer(2);

@@ -1,10 +1,16 @@
 <template>
 <div class="container">
+  <CommentsSlider 
+    v-bind:commentsToDisplay="commentsToDisplay"
+    v-if="showSlider"
+    v-on:onCloseComments="showSlider = false"/>
   <ol class="news-board">
     <NewsStory 
       v-for="(story, index) in topStories"
       v-bind:key="`story${index}`"
-      v-bind:story="story"/>
+      v-bind:story="story"
+      v-bind:index="index"
+      v-on:onShowComments="getCommentsToShow"/>
   </ol>
   <Observer v-on:intersect="intersected" v-if="infinityScroll"/>
 </div>
@@ -13,27 +19,40 @@
 
 <script>
 import axios from "axios";
+import CommentsSlider from "../organisms/CommentsSlider";
 import NewsStory from "../molecules/NewsStory";
 import Observer from "../molecules/Observer";
 
 export default {
   components: {
+    CommentsSlider,
     NewsStory,
     Observer,
   },
   data() {
     return {
+      commentsToDisplay: [],
       topStoryIds: [],
       topStories: [],
       batchSizeToLoad: 30,
       hasApiCallError: false,
-      infinityScroll: false
+      infinityScroll: false,
+      showSlider: false
     }
   },
   created: function() {
     this.getTopStoryIds();
   },
+  watch: {
+    showSlider() {
+      document.body.style.overflow = this.showSlider ? 'hidden' : ''
+    }
+  },
   methods: {
+    getCommentsToShow(value) {
+      this.commentsToDisplay = this.topStories[value].kids;
+      this.showSlider = true;
+    },
     getTopStoryIds() {
       const _this = this;
       axios
@@ -83,6 +102,6 @@ export default {
 
 <style lang="scss" scoped>
 .news-board {
-  padding-left: spacer(2);
+  padding-left: spacer(4);
 }
 </style>
