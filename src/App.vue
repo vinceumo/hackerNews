@@ -1,18 +1,21 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <NewsBoard/>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import NewsBoard from './components/organisms/NewsBoard.vue'
+import cssVars from "css-vars-ponyfill";
 
 export default {
   name: 'app',
   components: {
-    HelloWorld
-  }
+    NewsBoard
+  },
+  mounted: function() {
+    cssVars();
+  },
 }
 </script>
 
