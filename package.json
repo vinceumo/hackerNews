@@ -15,7 +15,8 @@
     "gh-pages": "^2.0.1",
     "intersection-observer": "^0.7.0",
     "register-service-worker": "^1.6.2",
-    "vue": "^2.6.10"
+    "vue": "^2.6.10",
+    "wicg-inert": "^2.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.8.0",

@@ -3,8 +3,9 @@
   <CommentsSlider 
     v-bind:commentsToDisplay="commentsToDisplay"
     v-if="showSlider"
-    v-on:onCloseComments="showSlider = false"/>
-  <ol class="news-board">
+    v-on:onCloseComments="showSlider = false"
+    ref="slider"/>
+  <ol class="news-board" ref="newsBoard">
     <NewsStory 
       v-for="(story, index) in topStories"
       v-bind:key="`story${index}`"
@@ -19,6 +20,7 @@
 
 <script>
 import axios from "axios";
+import inert from "wicg-inert";
 import CommentsSlider from "../organisms/CommentsSlider";
 import NewsStory from "../molecules/NewsStory";
 import Observer from "../molecules/Observer";
@@ -45,7 +47,9 @@ export default {
   },
   watch: {
     showSlider() {
-      document.body.style.overflow = this.showSlider ? 'hidden' : ''
+      document.body.style.overflow = this.showSlider ? 'hidden' : '';
+      // this.$refs.slider.inert =  this.showSlider;
+      // this.$refs.newsBoard.inert =  !this.showSlider;
     }
   },
   methods: {
