@@ -3,9 +3,8 @@
   <CommentsSlider 
     v-bind:commentsToDisplay="commentsToDisplay"
     v-if="showSlider"
-    v-on:onCloseComments="showSlider = false"
-    ref="slider"/>
-  <ol class="news-board" ref="newsBoard">
+    v-on:onCloseComments="showSlider = false"/>
+  <ol class="news-board">
     <NewsStory 
       v-for="(story, index) in topStories"
       v-bind:key="`story${index}`"
@@ -13,6 +12,7 @@
       v-bind:index="index"
       v-on:onShowComments="getCommentsToShow"/>
   </ol>
+  <LoadingSpinner v-if="isLoading"/>
   <Observer v-on:intersect="intersected" v-if="infinityScroll"/>
 </div>
   
@@ -20,14 +20,15 @@
 
 <script>
 import axios from "axios";
-// import inert from "wicg-inert";
 import CommentsSlider from "../organisms/CommentsSlider";
+import LoadingSpinner from "../molecules/LoadingSpinner";
 import NewsStory from "../molecules/NewsStory";
 import Observer from "../molecules/Observer";
 
 export default {
   components: {
     CommentsSlider,
+    LoadingSpinner,
     NewsStory,
     Observer,
   },
@@ -39,7 +40,8 @@ export default {
       batchSizeToLoad: 30,
       hasApiCallError: false,
       infinityScroll: false,
-      showSlider: false
+      showSlider: false,
+      isLoading: true
     }
   },
   created: function() {
@@ -48,8 +50,6 @@ export default {
   watch: {
     showSlider() {
       document.body.style.overflow = this.showSlider ? 'hidden' : '';
-      // this.$refs.slider.inert =  this.showSlider;
-      // this.$refs.newsBoard.inert =  !this.showSlider;
     }
   },
   methods: {
@@ -96,9 +96,12 @@ export default {
           _this.hasApiCallError = true;
         });
       }
+
+      this.isLoading = false;
     },
     intersected: function() {
       this.getTopStories(this.topStories.length);
+      this.isLoading = true;
     },
   },
 }

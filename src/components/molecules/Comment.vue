@@ -1,23 +1,31 @@
 <template>
   <li>
-    <p class="author"><b>By {{ comment.by }}</b></p>
-    <p v-html="comment.text"></p>
-    <ul>
-      <Comment v-for="id in comment.kids" v-bind:key="id" v-bind:commentId="id" />
-    </ul>
+    <LoadingSpinner v-if="isLoading"/>
+    <div v-else>
+      <p class="author"><b>By {{ comment.by }}</b></p>
+      <p v-html="comment.text"></p>
+      <ul>
+        <Comment v-for="id in comment.kids" v-bind:key="id" v-bind:commentId="id" />
+      </ul>
+    </div>
   </li>
 </template>
 
 <script>
 import axios from "axios";
+import LoadingSpinner from "./LoadingSpinner";
 export default {
   name: 'Comment',
+  components: {
+    LoadingSpinner
+  },
   props: {
     commentId: Number,
   },
   data() {
     return {
-      comment: {}
+      comment: {},
+      isLoading: true
     }
   },
   mounted() {
@@ -29,6 +37,7 @@ export default {
         .then(function(response) {
           if(response.data) {
             _this.comment = response.data;
+            _this.isLoading = false;
           }
         })
   },

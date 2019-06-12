@@ -1,0 +1,35 @@
+<template>
+  <div class="spinner"></div>
+</template>
+
+<style lang="scss" scoped>
+.spinner {
+  width: 40px;
+  height: 40px;
+  margin: 100px auto;
+  background-color: color(primary);
+
+  border-radius: 100%;
+  animation: sk-scaleout 1s infinite ease-in-out;
+}
+
+@-webkit-keyframes sk-scaleout {
+  0% {
+    -webkit-transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1);
+    opacity: 0;
+  }
+}
+
+@keyframes sk-scaleout {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+</style>
