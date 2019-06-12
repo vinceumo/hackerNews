@@ -2,8 +2,8 @@
   <li>
     <LoadingSpinner v-if="isLoading"/>
     <div v-else>
-      <p class="author"><b>By {{ comment.by }}</b></p>
-      <p v-html="comment.text"></p>
+      <p class="author" v-if="comment.text"><b>By {{ comment.by }}</b></p>
+      <p v-html="comment.text" v-if="comment.text"></p>
       <ul>
         <Comment v-for="id in comment.kids" v-bind:key="id" v-bind:commentId="id" />
       </ul>

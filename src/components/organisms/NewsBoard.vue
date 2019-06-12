@@ -74,6 +74,7 @@ export default {
     getTopStories(startIndex) {
       const _this = this;
       let batchSizeToLoad;
+      this.isLoading = true;
 
       if (this.topStoryIds.length - startIndex <= this.batchSizeToLoad) {
         _this.infinityScroll = false;
@@ -90,18 +91,22 @@ export default {
         .then(function(response) {
           if(response.data) {
             _this.topStories.push(response.data);
+
+            if( i === batchSizeToLoad - 1) {
+               _this.isLoading = false;
+            } 
           }
         })
         .catch(function() {
           _this.hasApiCallError = true;
+          _this.isLoading = false;
         });
       }
 
-      this.isLoading = false;
+      
     },
     intersected: function() {
       this.getTopStories(this.topStories.length);
-      this.isLoading = true;
     },
   },
 }
